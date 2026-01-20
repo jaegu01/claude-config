@@ -1,0 +1,97 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(./.env.example)",
+      "Bash(git:*)",
+      "Bash(npm:*)",
+      "Bash(yarn:*)",
+      "Bash(pnpm:*)",
+      "mcp__sequential-thinking__sequentialthinking",
+      "Bash(dir /s /b)",
+      "mcp__plugin_context7_context7__resolve-library-id",
+      "mcp__plugin_context7_context7__query-docs",
+      "Bash(where:*)",
+      "Bash(winget install:*)",
+      "Bash(\"C:/ProgramData/sw/jq.exe\" --version)",
+      "Bash(powershell -ExecutionPolicy Bypass -Command \"echo ''{\"\"model\"\":{\"\"display_name\"\":\"\"Claude Opus 4.5\"\"},\"\"workspace\"\":{\"\"current_dir\"\":\"\"C:\\\\\\\\ProgramData\\\\\\\\Works\\\\\\\\AIToolTest\\\\\\\\TestProject\"\"},\"\"context_window\"\":{\"\"remaining_percentage\"\":95,\"\"used_percentage\"\":5},\"\"version\"\":\"\"2.1.12\"\"}'' | powershell -ExecutionPolicy Bypass -File C:\\\\Users\\\\9144\\\\.claude\\\\statusline-command.ps1\")",
+      "Bash(powershell -ExecutionPolicy Bypass -Command \"$json = ''{\"\"model\"\":{\"\"display_name\"\":\"\"Claude Opus 4.5\"\",\"\"id\"\":\"\"claude-opus-4-5\"\"},\"\"cwd\"\":\"\"C:\\\\ProgramData\\\\Works\\\\AIToolTest\\\\TestProject\"\",\"\"version\"\":\"\"2.1.12\"\",\"\"context_window\"\":{\"\"remaining_percentage\"\":95,\"\"used_percentage\"\":5}}''; $json | powershell -ExecutionPolicy Bypass -File C:\\\\Users\\\\9144\\\\.claude\\\\statusline-command.ps1\")",
+      "Bash(powershell -ExecutionPolicy Bypass -Command \"''{\"\"model\"\":{\"\"display_name\"\":\"\"Claude Opus 4.5\"\"},\"\"cwd\"\":\"\"C:\\\\\\\\ProgramData\\\\\\\\Works\\\\\\\\AIToolTest\\\\\\\\TestProject\"\",\"\"version\"\":\"\"2.1.12\"\",\"\"context_window\"\":{\"\"remaining_percentage\"\":95,\"\"used_percentage\"\":5}}'' | Out-File -FilePath C:\\\\Users\\\\9144\\\\.claude\\\\test-input.json -Encoding UTF8\")",
+      "Bash(powershell -ExecutionPolicy Bypass -Command \"Get-Content C:\\\\Users\\\\9144\\\\.claude\\\\test-input.json | powershell -ExecutionPolicy Bypass -File C:\\\\Users\\\\9144\\\\.claude\\\\statusline-command.ps1\")",
+      "Bash(powershell -ExecutionPolicy Bypass -Command \"Get-Content C:\\\\Users\\\\9144\\\\.claude\\\\test-input.json -Raw | powershell -ExecutionPolicy Bypass -File C:\\\\Users\\\\9144\\\\.claude\\\\statusline-command.ps1\")",
+      "Bash(powershell -ExecutionPolicy Bypass -Command \"Get-Content ''C:\\\\Users\\\\9144\\\\.claude\\\\statusline-debug.txt'' -Raw | Format-Hex | Select-Object -First 20\")",
+      "Bash(powershell -ExecutionPolicy Bypass -Command \"''''{\"\"model\"\":{\"\"display_name\"\":\"\"Test\"\"}}'''' | ConvertFrom-Json | Select-Object -ExpandProperty model\")",
+      "Bash(powershell -ExecutionPolicy Bypass -Command \"Get-Content ''C:\\\\Users\\\\9144\\\\.claude\\\\statusline-debug.txt'' -Raw | ConvertFrom-Json\")",
+      "Bash(powershell -ExecutionPolicy Bypass -Command \"@{model=@{display_name=''Claude Opus 4.5''};cwd=''C:\\\\ProgramData\\\\Works\\\\AIToolTest\\\\TestProject'';version=''2.1.12'';context_window=@{remaining_percentage=95;used_percentage=5}} | ConvertTo-Json -Compress | Out-File ''C:\\\\Users\\\\9144\\\\.claude\\\\test-input.json'' -Encoding ASCII -NoNewline\")",
+      "Bash(powershell -ExecutionPolicy Bypass -Command \"Get-Content ''C:\\\\Users\\\\9144\\\\.claude\\\\test-input.json'' -Raw | powershell -ExecutionPolicy Bypass -File C:\\\\Users\\\\9144\\\\.claude\\\\statusline-command.ps1\")",
+      "Bash(del \"C:\\\\Users\\\\9144\\\\.claude\\\\test-input.json\" \"C:\\\\Users\\\\9144\\\\.claude\\\\statusline-debug.txt\")",
+      "Bash(powershell -Command:*)"
+    ],
+    "deny": [
+      "Read(./.env*)",
+      "Read(./secrets/**)",
+      "Bash(rm:-rf)",
+      "Bash(curl:*)"
+    ],
+    "defaultMode": "default"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python C:\\Users\\9144\\.claude\\hooks\\block-secrets.py"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File C:\\Users\\9144\\.claude\\hooks\\block-dangerous-commands.ps1"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File C:\\Users\\9144\\.claude\\hooks\\after-edit.ps1"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File C:\\Users\\9144\\.claude\\hooks\\end-of-turn.ps1"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File C:\\Users\\9144\\.claude\\hooks\\notify.ps1"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "powershell -NoProfile -ExecutionPolicy Bypass -File C:\\Users\\9144\\.claude\\statusline-command.ps1"
+  },
+  "language": "한국어"
+}

@@ -1,0 +1,65 @@
+# ===================================
+# Claude Code Global Config - .gitignore
+# ===================================
+
+# 인증 정보 (절대 커밋 금지!)
+.credentials.json
+credentials.json
+
+# 락 파일
+.update.lock
+*.lock
+
+# 캐시 및 임시 파일
+cache/
+stats-cache.json
+statsig/
+
+# 디버그/로그
+debug/
+
+# 다운로드 파일
+downloads/
+
+# 세션/히스토리 (개인 데이터)
+history.jsonl
+file-history/
+projects/
+transcripts/
+shell-snapshots/
+todos/
+plans/
+
+# 텔레메트리
+telemetry/
+
+# IDE 설정
+ide/
+
+# 플러그인 (설치하면 자동 생성)
+plugins/
+
+# 상태줄 디버그 파일
+statusline-debug.json
+statusline-debug.txt
+test-input.json
+
+# 로컬 설정 (PC별 다를 수 있음)
+.claude/
+settings.local.json
+*.local.json
+*.local.md
+
+# OS 생성 파일
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===================================
+# 관리할 파일 (커밋 대상)
+# ===================================
+# CLAUDE.md           - 글로벌 지침
+# settings.json       - 설정 (hooks, permissions 등)
+# hooks/              - 커스텀 훅 스크립트
+# skills/             - 커스텀 스킬
+# statusline-command.ps1 - 상태줄 스크립트 (선택)
